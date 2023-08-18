@@ -5,6 +5,13 @@ import Notiflix from "notiflix";
 
 axios.defaults.headers.common["x-api-key"] ="live_pvzthhwcLNpXzoGTokX0tGZWTJzvh39GuvvCEkgQVjxlzqlAOTNp6AJgpMGnO3Wq";
 
+
+const loader = Notiflix.Loading;
+
+const catInfo = document.querySelector(".cat-info");
+const imageContainer = document.querySelector(".image");
+const catTextContainer = document.querySelector(".cat-text");
+
 const slimBreeds = new SlimSelect({
   select: ".breed-select",
   placeholder: "Select a breed",
@@ -16,7 +23,7 @@ const slimBreeds = new SlimSelect({
     Notiflix.Loading.pulse("Loading Cat Information..."); // Use Loading.pulse to show loading animation
     try {
       const catData = await fetchCatInfo(selectedBreedId);
-      displayCatInfo(catData);
+      displayCatInfo(catData[0]);
     } catch (error) {
       showError();
     } finally {
@@ -25,24 +32,7 @@ const slimBreeds = new SlimSelect({
   },
 });
 
-const loader = Notiflix.Loading;
-
-const catInfo = document.querySelector(".cat-info");
-const imageContainer = document.querySelector(".image");
-const catTextContainer = document.querySelector(".cat-text");
-
-async function fetchCatInfo(breedId) {
-    try {
-      const catData = await fetchCatByBreed(breedId);
-      displayCatInfo(catData[0]);
-    } catch (error) {
-      showError();
-    } finally {
-      loader.hide();
-    }
-  }
-
-async function displayCatInfo(catData) {
+function displayCatInfo(catData) {
   imageContainer.innerHTML = `<img src="${catData.url}" alt="Cat Image" width="100%">`;
   catTextContainer.innerHTML = `
     <h2>${catData.breeds[0].name}</h2>
@@ -58,6 +48,7 @@ function showError() {
 
 (async function () {
     Notiflix.Loading.pulse("Loading Breeds..."); // Use Loading.pulse to show loading animation
+    
     try {
       const breeds = await fetchBreeds();
       const options = breeds.map((breed) => ({
