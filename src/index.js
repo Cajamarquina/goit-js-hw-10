@@ -22,7 +22,7 @@ const slimBreeds = new SlimSelect({
     const selectedBreedId = info.value[0];
     Notiflix.Loading.pulse("Loading Cat Information..."); // Use Loading.pulse to show loading animation
     try {
-      const catData = await fetchCatInfo(selectedBreedId);
+      const catData = await fetchCatByBreed(selectedBreedId);
       displayCatInfo(catData[0]);
     } catch (error) {
       showError();
@@ -48,7 +48,7 @@ function showError() {
 
 (async function () {
     Notiflix.Loading.pulse("Loading Breeds..."); // Use Loading.pulse to show loading animation
-    
+
     try {
       const breeds = await fetchBreeds();
       const options = breeds.map((breed) => ({
