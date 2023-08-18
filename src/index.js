@@ -9,6 +9,10 @@ const catInfo = document.querySelector(".cat-info")
 const loader = document.querySelector('.loader')
 const error = document.querySelector('.error')
 
+window.addEventListener("load", () => {
+    loader.classList.remove('is-hidden');
+});
+
 selectCat.addEventListener("change", onSelectChange)
 
 
@@ -60,6 +64,7 @@ function onSelectChange(evt) {
 function renderMarkupInfo(data) {
     const { breeds, url } = data[0];
     const { name, temperament, description } = breeds[0];
+    const wikipediaLink = `https://en.wikipedia.org/wiki/${name.replace(/\s/g, '_')}`;
     const breedCard = `
   <div class=cat-info>
   <span class="cat-photo">
@@ -68,9 +73,13 @@ function renderMarkupInfo(data) {
   <span class="cat-card">
   <h2 class="cat-name" font-size = "24px"> ${name}</h2>
   <p><strong>Description:</strong> ${description}</p>
-  <p><strong>Temperament:</strong> ${temperament}</p>  
+  <p><strong>Temperament:</strong> ${temperament}</p> 
+  <p><strong>Wikipedia:</strong> <a href="${wikipediaLink}" target="_blank">${name} </a></p> 
   </span>
-  </div>`;
+  </div>
+  <div id="zaza">
+        <div id="cat"></div>
+</div>`;
 
     catInfo.innerHTML = breedCard;
 }
