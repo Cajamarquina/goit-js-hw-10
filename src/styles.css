@@ -28,23 +28,13 @@ img {
     margin: auto;
 }
 
-.loader {
-    font-size: 0;
-    position: relative;
-    width: 250px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.h2 {
-    text-align: center !important;
-}
 .cat-info {
     margin-top: 20px;
     padding: 20px;
     display: flex;
     justify-content: center;
     gap: 20px;
+    max-width : 1200px;
     background-color: #e2e9f3;
 }
 
@@ -132,21 +122,12 @@ img {
   }
 
 
-  #zaza{
-    width: 1325px;
-    height: 500px;
-    margin-left:100px;
-    overflow: hidden;
-    border-radius: 16px;
-    margin-top: 2em;
-    }
-
-
 #cat{
     background: url('https://res.cloudinary.com/pastelitos/image/upload/v1610526571/eva/gatito_pushui.svg');
     height: 297px; 
     width: 507.5px;
     margin-top: 2em;
+    align-item: center;
     z-index: 10;
     -webkit-animation: sprite-animation 1.2s steps(16,end) infinite;
     -moz-animation: sprite-animation 1.2s steps(16,end) infinite; 
@@ -173,4 +154,6 @@ img {
         from { background-position: 0 0; }
         to { background-position: -8120px 0; }
     }
+    
+  
     
