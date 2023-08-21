@@ -13,28 +13,25 @@ img {
 }
 
 
-.is-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
 .breed-select {
     max-width: 400px;
     margin: auto;
 }
 
+.error .is-hidden {
+  visibility:hidden;
+}
 .cat-info {
+  display: flex;
+  justify-content: center;
+}
+.cat-information {
     margin-top: 20px;
     padding: 20px;
     display: flex;
     justify-content: center;
     gap: 20px;
-    max-width : 1200px;
+    max-width: 1200px;
     background-color: #e2e9f3;
 }
 
@@ -43,18 +40,40 @@ img {
     align-items: center;
 }
 
-.box {
-    width: 400px;
+
+.loader-container {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index: 100;
+    right:0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(46, 47, 66, 0.4);
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.loader-container.is-hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events: none;
+} 
 
 .loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
     transform: rotateZ(45deg);
     perspective: 1000px;
     border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    color: #fff;
+    width: 100px;
+    height: 100px;
+    color: #b8d9f1;
+    margin: auto;
   }
     .loader:before,
     .loader:after {
@@ -70,7 +89,7 @@ img {
       animation: 1s spin linear infinite;
     }
     .loader:after {
-      color: #0084ff;
+      color: #1c3cdc;
       transform: rotateY(70deg);
       animation-delay: .4s;
     }
@@ -121,6 +140,11 @@ img {
     }
   }
 
+  .loader-text {
+    font-size: 30px;
+    color: aliceblue;
+    text-align: center;
+  }
 
 #cat{
     background: url('https://res.cloudinary.com/pastelitos/image/upload/v1610526571/eva/gatito_pushui.svg');

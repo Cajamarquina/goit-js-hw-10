@@ -1,4 +1,3 @@
-// index.js
 import axios from "axios";
 import { fetchBreeds, fetchCatByBreed } from "./cat-api";
 import SlimSelect from "slim-select";
@@ -6,23 +5,24 @@ import Notiflix from "notiflix";
 
 const selectCat = document.querySelector(".breed-select");
 const catInfo = document.querySelector(".cat-info");
-const loader = document.querySelector('.loader');
+const loaderContainer = document.querySelector('.loader-container');
 const error = document.querySelector('.error');
 
 // Function to show the loader and hide the error message
-function showLoader() {
-  loader.classList.remove('is-hidden');
+function showLoader(){
+  loaderContainer.classList.remove('is-hidden');
   error.classList.add('is-hidden');
 }
 
 // Function to hide the loader
 function hideLoader() {
-  loader.classList.add('is-hidden');
+  loaderContainer.classList.add('is-hidden');
 }
 
 // Function to show the error message
 function showError() {
-  error.classList.remove('is-hidden');
+  hideLoader(); // Hide the loader container
+  Notiflix.Notify.Failure('Oops! Something went wrong! Try reloading the page!');
 }
 
 window.addEventListener("load", () => {
@@ -35,10 +35,14 @@ function createCatList() {
   showLoader(); // Show loader when fetching breeds
 
   fetchBreeds()
-    .then(data => {
-      const optionsList = data.map(({ id, name }) => ` <option value="${id}" style="font-size: 22px;">${name}</option>`).join(' ');
+  .then(data => {
+    const optionsList = data
+      .map(({ id, name }) => `<option value="${id}" style="font-size: 22px;">${name}</option>`)
+      .join(' ');
 
-      selectCat.innerHTML = optionsList;
+    // Add an empty option at the beginning of the list
+    const emptyOption = '<option value="" selected>Select your kitty...</option>';
+    selectCat.innerHTML = emptyOption + optionsList;
 
       new SlimSelect({
         select: selectCat
@@ -66,7 +70,7 @@ function onSelectChange(evt) {
       const { name, temperament, description } = breeds[0];
       const wikipediaLink = `https://en.wikipedia.org/wiki/${name.replace(/\s/g, '_')}`;
       const breedCard = `
-        <div class="cat-info">
+        <div class="cat-information">
           <div class="cat-photo">
             <img class="cat-img" width="500px" src="${url}" alt="${name}">
           </div>
