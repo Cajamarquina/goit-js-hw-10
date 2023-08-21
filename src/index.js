@@ -8,10 +8,24 @@ const catInfo = document.querySelector(".cat-info");
 const loaderContainer = document.querySelector('.loader-container');
 const error = document.querySelector('.error');
 
+let loaderMessageAdded = false; // Flag to track if the loader message is added
+
 // Function to show the loader and hide the error message
-function showLoader(){
+function showLoader() {
   loaderContainer.classList.remove('is-hidden');
   error.classList.add('is-hidden');
+  
+  if (!loaderMessageAdded) {
+    // Create the loader message element
+    const loaderMessage = document.createElement('p');
+    loaderMessage.classList.add('loader-text');
+    loaderMessage.textContent = 'Loading your kitty...';
+  
+    // Append the loader message to the loader container
+    loaderContainer.appendChild(loaderMessage);
+    
+    loaderMessageAdded = true; // Set the flag to true
+  }
 }
 
 // Function to hide the loader
